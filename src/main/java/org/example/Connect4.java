@@ -97,6 +97,9 @@ public class Connect4 extends GameStateImpl {
     public boolean checkWin() {
         if (lastI < 0)
             return false;
+        if (lastI == 0) {
+            return true;
+        }
         byte lastSymbol = board[lastI][lastJ];
         // prawo-lewo
         int count = 0;
@@ -173,8 +176,25 @@ public class Connect4 extends GameStateImpl {
         }
         return children;
     }
-
+    public static boolean getStart(){
+        System.out.println("O or X");
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            String input = scanner.next().trim().toUpperCase();
+            if (input.equals("X")) {
+                return true;
+            } else if (input.equals("O")) {
+                return false;
+            }else{
+                System.out.println("Enter another option");
+            }
+        }
+    }
+    public byte[][] getBoard() {
+        return board;
+    }
     public static void main(String[] args) {
+        boolean xStarts = getStart();
         Connect4.setHFunction(new Connect4Evaluation()); // podpiecie heurystyki
         Connect4 c4 = new Connect4();
         Scanner scanner = new Scanner(System.in);
